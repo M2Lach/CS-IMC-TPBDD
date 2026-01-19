@@ -1,6 +1,6 @@
-SELECT a.primaryName
-FROM tJob j
-JOIN tArtist a ON a.idArtist = j.idArtist
-WHERE j.category IN ('actor', 'actress', 'acted in')
-GROUP BY a.idArtist, a.primaryName
-HAVING COUNT(DISTINCT j.idFilm) > 1;
+SELECT a.primaryName, a.idArtist,  f.primaryTitle, f.idFilm
+FROM tArtist a
+JOIN tJob j ON a.idArtist = j.idArtist
+JOIN tFilm f ON f.idFilm = j.idFilm
+GROUP BY a.idArtist, a.primaryName, f.idFilm, f.primaryTitle
+HAVING COUNT(DISTINCT j.category) > 1;
